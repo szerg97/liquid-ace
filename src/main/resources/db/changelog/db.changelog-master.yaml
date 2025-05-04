@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: Gergo Szalai
+      changes:
+        - createTable:
+            tableName: houses
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(127)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - tagDatabase:
+            tag: v1.0
+      rollback:
+        - dropTable:
+            tableName: houses
+
+  - changeSet:
+      id: 002
+      author: Gergo Szalai
+      changes:
+        - addColumn:
+            tableName: houses
+            columns:
+              - column:
+                  name: dummy_column_1
+                  type: varchar(127)
+        - tagDatabase:
+            tag: v2.0
+      rollback:
+        - dropColumn:
+            tableName: houses
+            columnName: dummy_column_1
