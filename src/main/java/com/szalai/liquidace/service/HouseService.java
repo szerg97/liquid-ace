@@ -19,14 +19,12 @@ public class HouseService {
 
     public void addHouse(HouseRequest request) {
         try {
-            final House houseToSave = Optional.of(request).map(r -> new House(
-                            UUID.randomUUID().toString(),
-                            r.address(),
-                            r.city(),
-                            r.price(),
-                            System.currentTimeMillis()))
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid request"));
-            houseRepository.save(houseToSave);
+            houseRepository.save(new House(
+                    UUID.randomUUID().toString(),
+                    request.address(),
+                    request.city(),
+                    request.price(),
+                    System.currentTimeMillis()));
         } catch (Exception e) {
             log.error("Exception happened during saving to the database", e);
 
